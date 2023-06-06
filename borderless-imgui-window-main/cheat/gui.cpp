@@ -252,11 +252,50 @@ void gui::Render() noexcept
 		ImGuiWindowFlags_NoMove
 	);
 
-	ImGui::Checkbox("Glow", &globals::glow);
-	ImGui::Checkbox("Radar", &globals::radar);
+	if (ImGui::BeginTabBar("tabs"))
+	{
+		if (ImGui::BeginTabItem("Aimbot"))
+		{
+			//	run things
+			ImGui::Checkbox("Aimbot", &globals::aim);
+			ImGui::SameLine();
+			ImGui::Text("Hotkey H");
+			ImGui::SliderFloat("Aimbot Fov", &globals::aimStength, 1, 360);
+			ImGui::SliderFloat("Aimbot Softness", &globals::aimSoftness, 1, 25);
+			ImGui::EndTabItem();
+		}
 
-	ImGui::ColorEdit4("Glow Color", globals::glowColor);
-	ImGui::ColorEdit4("Teamate Color", globals::teamColor);
+		if (ImGui::BeginTabItem("Wallhacks"))
+		{
+			//	run things
+			ImGui::Checkbox("Glow", &globals::glow);
+			ImGui::ColorEdit4("Glow Color", globals::glowColor);
+			//ImGui::ColorEdit4("Teammate Color", globals::teamColor);
+			ImGui::EndTabItem();
+		}
 
+		if (ImGui::BeginTabItem("Rage"))
+		{
+			//	run things
+			ImGui::Checkbox("Rage Aimbot", &globals::rageAim);
+			ImGui::EndTabItem();
+		}
+
+		if (ImGui::BeginTabItem("Misc"))
+		{
+			//	run things
+			ImGui::Checkbox("Radar", &globals::radar);
+			ImGui::EndTabItem();
+		}
+
+		if (ImGui::BeginTabItem("Settings"))
+		{
+			//	run things
+			ImGui::ShowStyleEditor();
+			ImGui::EndTabItem();
+		}
+
+		ImGui::EndTabBar();
+	}
 	ImGui::End();
 }
