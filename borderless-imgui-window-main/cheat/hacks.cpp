@@ -76,40 +76,40 @@ void hacks::VisualThread(const Memory& mem) noexcept
 				{
 					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
+					for (auto i = 1; i <= 64; ++i)
+						{
+							const auto player = mem.Read<std::uintptr_t>(globals::clientAdress + offsets::dwEntityList + i * 0x10);
+
+							if (!player)
+								continue;
+
+							const auto team = mem.Read<std::int32_t>(player + offsets::m_iTeamNum);
+
+							if (team == localTeam)
+								continue;
+
+							const auto lifeState = mem.Read<std::int32_t>(player + offsets::m_lifeState);
+
+							if (lifeState != 0)
+								continue;
+
+							if (globals::glow)
+							{
+								const auto glowIndex = mem.Read<std::int32_t>(player + offsets::m_iGlowIndex);
+
+								mem.Write(glowManager + (glowIndex * 0x38) + 0x8, globals::glowColor[0]); // red
+								mem.Write(glowManager + (glowIndex * 0x38) + 0xC, globals::glowColor[1]); // green
+								mem.Write(glowManager + (glowIndex * 0x38) + 0x10, globals::glowColor[2]); // blue
+								mem.Write(glowManager + (glowIndex * 0x38) + 0x14, globals::glowColor[3]); // alpha
+
+								mem.Write(glowManager + (glowIndex * 0x38) + 0x28, true);
+								mem.Write(glowManager + (glowIndex * 0x38) + 0x29, false);
+							}
+					}
+
 					// aimbot key
 					if (!GetAsyncKeyState(0x48))
 						continue;
-
-					for (auto i = 1; i <= 64; ++i)
-					{
-						const auto player = mem.Read<std::uintptr_t>(globals::clientAdress + offsets::dwEntityList + i * 0x10);
-
-						if (!player)
-							continue;
-
-						const auto team = mem.Read<std::int32_t>(player + offsets::m_iTeamNum);
-
-						if (team == localTeam)
-							continue;
-
-						const auto lifeState = mem.Read<std::int32_t>(player + offsets::m_lifeState);
-
-						if (lifeState != 0)
-							continue;
-
-						if (globals::glow)
-						{
-							const auto glowIndex = mem.Read<std::int32_t>(player + offsets::m_iGlowIndex);
-
-							mem.Write(glowManager + (glowIndex * 0x38) + 0x8, globals::glowColor[0]); // red
-							mem.Write(glowManager + (glowIndex * 0x38) + 0xC, globals::glowColor[1]); // green
-							mem.Write(glowManager + (glowIndex * 0x38) + 0x10, globals::glowColor[2]); // blue
-							mem.Write(glowManager + (glowIndex * 0x38) + 0x14, globals::glowColor[3]); // alpha
-
-							mem.Write(glowManager + (glowIndex * 0x38) + 0x28, true);
-							mem.Write(glowManager + (glowIndex * 0x38) + 0x29, false);
-						}
-					}
 
 					// get local player
 					const auto localPlayer = mem.Read<std::uintptr_t>(client + aim::dwLocalPlayer);

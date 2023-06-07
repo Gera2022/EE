@@ -11,6 +11,7 @@ namespace globals
 	inline bool radar = false;
 	inline bool aim = false;
 	inline bool rageAim = false;
+	inline bool bhop = false;
 
 	inline float aimStength = 10.f;
 	inline float aimSoftness = 3.f;
@@ -21,9 +22,9 @@ namespace globals
 
 namespace offsets
 {
-	constexpr ::std::ptrdiff_t dwLocalPlayer = 0xDE997C;
-	constexpr ::std::ptrdiff_t dwGlowObjectManager = 0x5359988;
-	constexpr ::std::ptrdiff_t dwEntityList = 0x4DFEF0C;
+	constexpr ::std::ptrdiff_t dwLocalPlayer = 0xDEA98C;
+	constexpr ::std::ptrdiff_t dwGlowObjectManager = 0x535AA08;
+	constexpr ::std::ptrdiff_t dwEntityList = 0x4DFFF7C;
 
 	constexpr ::std::ptrdiff_t m_iTeamNum = 0xF4;
 	constexpr ::std::ptrdiff_t m_lifeState = 0x25F;
@@ -34,8 +35,8 @@ namespace offsets
 namespace aim
 {
 	// client
-	constexpr ::std::ptrdiff_t dwLocalPlayer = 0xDE997C;
-	constexpr ::std::ptrdiff_t dwEntityList = 0x4DFEF0C;
+	constexpr ::std::ptrdiff_t dwLocalPlayer = 0xDEA98C;
+	constexpr ::std::ptrdiff_t dwEntityList = 0x4DFFF7C;
 
 	// engine
 	constexpr ::std::ptrdiff_t dwClientState = 0x59F19C;
@@ -51,4 +52,12 @@ namespace aim
 	constexpr ::std::ptrdiff_t m_vecViewOffset = 0x108;
 	constexpr ::std::ptrdiff_t m_aimPunchAngle = 0x303C;
 	constexpr ::std::ptrdiff_t m_bSpottedByMask = 0x980;
+}
+
+namespace bhop
+{
+	constexpr auto localPlayer = 0xDEA98C;
+	constexpr auto flags = 0x104;
+	constexpr auto forceJump = 0x52BAC68;
+	constexpr auto entityList = 0x4DFFF7C;
 }

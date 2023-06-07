@@ -285,6 +285,7 @@ void gui::Render() noexcept
 		{
 			//	run things
 			ImGui::Checkbox("Radar", &globals::radar);
+			ImGui::Checkbox("Bunnyhop", &globals::bhop);
 			ImGui::EndTabItem();
 		}
 
